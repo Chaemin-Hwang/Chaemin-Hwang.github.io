@@ -242,7 +242,8 @@ nav {
   border-radius: 10px;
   display: block;
   border: 1px solid var(--border);
-  object-fit: contain;
+  aspect-ratio: 1986 / 2387;
+  object-fit: cover;
 }
 
 /* Section */
