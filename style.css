@@ -73,7 +73,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-family: 'DM Sans', Verdana, Helvetica, sans-serif;
   font-size: 14px;
   line-height: 1.7;
   color: var(--text-primary);
@@ -92,7 +92,7 @@ a:hover {
 }
 
 strong {
-  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-family: 'DM Sans', Verdana, Helvetica, sans-serif;
   font-size: 14px;
 }
 
@@ -125,7 +125,7 @@ nav {
 }
 
 .nav-name {
-  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-family: 'DM Sans', Verdana, Helvetica, sans-serif;
   font-size: 17px;
   font-weight: 700;
   color: var(--text-primary);
@@ -159,9 +159,9 @@ nav {
 }
 
 .hero-name {
-  font-family: 'Lato', Verdana, Helvetica, sans-serif;
+  font-family: 'EB Garamond', Georgia, serif;
   font-size: 40px;
-  font-weight: 700;
+  font-weight: 500;
   line-height: 1.1;
   letter-spacing: -0.01em;
   margin-bottom: 6px;
