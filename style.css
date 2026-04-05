@@ -105,14 +105,20 @@ strong {
 
 /* Nav */
 nav {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   background: rgba(235, 245, 253, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   z-index: 100;
   padding: 12px 0;
+}
+
+body {
+  padding-top: 52px;
 }
 
 .nav-inner {
