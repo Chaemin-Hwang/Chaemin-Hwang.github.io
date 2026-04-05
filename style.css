@@ -243,7 +243,7 @@ nav {
   display: block;
   border: 1px solid var(--border);
   object-fit: cover;
-  aspect-ratio: 1;
+  aspect-ratio: 3/4;
 }
 
 /* Section */
