@@ -59,7 +59,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #f0f6fb;
+  --bg: #f5f9fd;
   --surface: #ffffff;
   --border: #e8e4de;
   --border-hover: #c8c2b8;
@@ -107,7 +107,7 @@ strong {
 nav {
   position: sticky;
   top: 0;
-  background: rgba(250, 249, 247, 0.92);
+  background: rgba(235, 245, 253, 0.92);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
