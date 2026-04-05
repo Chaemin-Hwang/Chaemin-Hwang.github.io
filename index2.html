@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kyomin Hwang</title>
+  <meta name="author" content="Kyomin Hwang">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #faf9f7;
+      --surface: #ffffff;
+      --border: #e8e4de;
+      --border-hover: #c8c2b8;
+      --text-primary: #1a1816;
+      --text-secondary: #5a5650;
+      --text-muted: #9a948e;
+      --accent: #2d4a6e;
+      --accent-light: #e8eef5;
+
+      --tag-privacy: #e8eef5;
+      --tag-privacy-text: #2d4a6e;
+      --tag-robust: #fef3e8;
+      --tag-robust-text: #8a4a0a;
+      --tag-xai: #f5ebe8;
+      --tag-xai-text: #7a3020;
+      --tag-other: #eef2ee;
+      --tag-other-text: #2a4a2a;
+      --tag-aix: #fdf0f8;
+      --tag-aix-text: #7a2a60;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-primary);
+      background: var(--bg);
+    }
+
+    /* Layout */
+    .page-wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Nav */
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(250, 249, 247, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      padding: 12px 0;
+    }
+
+    .nav-inner {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-name {
+      font-family: 'EB Garamond', serif;
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--text-primary);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.15s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* Hero */
+    .hero {
+      padding: 64px 0 40px;
+      display: grid;
+      grid-template-columns: 1fr 180px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .hero-name {
+      font-family: 'EB Garamond', serif;
+      font-size: 42px;
+      font-weight: 400;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+
+    .hero-title {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-bio {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+
+    .hero-bio a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .hero-bio a:hover { border-bottom-color: var(--accent); }
+
+    .hero-interests {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .interest-chip {
+      font-size: 12px;
+      font-weight: 400;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      background: var(--surface);
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      box-shadow: 0 2px 8px rgba(45, 74, 110, 0.08);
+    }
+
+    .hero-photo {
+      position: relative;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      border-radius: 10px;
+      display: block;
+      border: 1px solid var(--border);
+      object-fit: cover;
+      aspect-ratio: 1;
+    }
+
+    /* Section */
+    section {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--accent);
+      display: inline-block;
+    }
+
+    /* News */
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 8px;
+    }
+
+    .news-list::-webkit-scrollbar { width: 4px; }
+    .news-list::-webkit-scrollbar-track { background: transparent; }
+    .news-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .news-item {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
+    }
+
+    .news-item:last-child { border-bottom: none; }
+
+    .news-date {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .news-text {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .news-text a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .news-text a:hover { border-bottom-color: var(--accent); }
+
+    /* Publications */
+    .pub-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .pub-filter {
+      font-size: 12px;
+      font-weight: 400;
+      padding: 4px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .pub-filter.active, .pub-filter:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .pub-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .pub-item {
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .pub-item:last-child { border-bottom: none; }
+
+    .pub-badge {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 3px 6px;
+      border-radius: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      text-align: center;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+
+    .pub-title {
+      font-family: 'EB Garamond', serif;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.4;
+      color: var(--text-primary);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 4px;
+      transition: color 0.15s;
+    }
+
+    .pub-title:hover { color: var(--accent); }
+
+    .pub-authors {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .pub-authors .me {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .pub-venue {
+      font-size: 13px;
+      font-style: italic;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .pub-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 11px;
+      font-weight: 400;
+      padding: 2px 8px;
+      border-radius: 10px;
+    }
+
+    .tag-privacy { background: var(--tag-privacy); color: var(--tag-privacy-text); }
+    .tag-robust { background: var(--tag-robust); color: var(--tag-robust-text); }
+    .tag-xai { background: var(--tag-xai); color: var(--tag-xai-text); }
+    .tag-other { background: var(--tag-other); color: var(--tag-other-text); }
+    .tag-aix { background: var(--tag-aix); color: var(--tag-aix-text); }
+
+    /* Awards / Challenge / Teaching */
+    .list-items {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .list-item {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .list-item:last-child { border-bottom: none; }
+
+    .list-item-year {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .list-item-title {
+      color: var(--text-primary);
+      font-weight: 400;
+    }
+
+    /* Footer */
+    footer {
+      padding: 32px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+    }
+
+    footer a:hover { color: var(--text-secondary); }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero { grid-template-columns: 1fr; gap: 32px; }
+      .hero-photo { order: -1; max-width: 140px; }
+      .hero-name { font-size: 32px; }
+      .two-col { grid-template-columns: 1fr; gap: 0; }
+      .pub-item { grid-template-columns: 1fr; }
+      .pub-badge { display: none; }
+      .nav-links { display: none; }
+    }
+
+    /* Hidden pub items */
+    .pub-item.hidden { display: none; }
+    /* Reviewer table */
+    .reviewer-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .reviewer-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .reviewer-table tr:last-child {
+      border-bottom: none;
+    }
+
+    .reviewer-type {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 14px 24px 14px 0;
+      vertical-align: top;
+      width: 90px;
+      white-space: nowrap;
+    }
+
+    .reviewer-venues {
+      padding: 14px 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .reviewer-chip {
+      font-size: 13px;
+      color: var(--text-secondary);
+      padding: 3px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      white-space: nowrap;
+    }
+
+    .reviewer-chip span {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-name">Kyomin Hwang</a>
+    <div class="nav-links">
+      <a href="#news">News</a>
+      <a href="#publications">Publications</a>
+      <a href="#honors">Honors</a>
+      <a href="#competitions">Competitions</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#reviewer">Reviewer</a>
+    </div>
+  </div>
+</nav>
+
+<main class="page-wrapper">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div>
+      <h1 class="hero-name">Kyomin Hwang</h1>
+      <p class="hero-title">Ph.D. Student &nbsp;·&nbsp; Seoul National University</p>
+
+      <p class="hero-bio">
+        I am a Ph.D. student at <a href="https://en.snu.ac.kr">Seoul National University</a>, advised by Professor <a href="http://mipal.snu.ac.kr/index.php/Nojun_Kwak">Nojun Kwak</a>. I received my B.S. in Computer Science from <a href="https://www.kookmin.ac.kr">Kookmin University</a>.
+      </p>
+      <p class="hero-bio">
+        My research focuses on <strong>Trustworthy AI</strong> — particularly privacy, robustness, and interpretability. I am also exploring interdisciplinary applications in other fields.
+      </p>
+
+      <div class="hero-interests">
+        <span class="interest-chip">Privacy</span>
+        <span class="interest-chip">Robustness</span>
+        <span class="interest-chip">Interpretability</span>
+        <span class="interest-chip">AI + Psychology</span>
+        <span class="interest-chip">AI + Medical</span>
+      </div>
+
+      <div class="contact-links">
+        <a class="contact-link" href="mailto:kyomin98@snu.ac.kr">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>
+          Email
+        </a>
+        <a class="contact-link" href="https://scholar.google.com/citations?user=k4TQ414AAAAJ&hl=en" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          Google Scholar
+        </a>
+        <a class="contact-link" href="https://github.com/KyominHwang/" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-photo">
+      <img src="image/profile.png" alt="Kyomin Hwang">
+    </div>
+  </div>
+
+  <!-- News -->
+  <section id="news">
+    <p class="section-label">Recent News</p>
+    <div class="news-list">
+
+      <div class="news-item">
+        <span class="news-date">Mar 2026</span>
+        <span class="news-text"><a href="https://arxiv.org/abs/2603.26046">One first-author paper</a> accepted at Clinical NLP @ LREC 2026.</span>
+      </div>
+
+      <div class="news-item">
+        <span class="news-date">Feb 2025</span>
+        <span class="news-text"><a href="https://arxiv.org/abs/2503.13915">One first-author paper</a> accepted at CVPR 2025.</span>
+      </div>
+
+      <div class="news-item">
+        <span class="news-date">Jun 2024</span>
+        <span class="news-text">Joining Naver Cloud (Document Understanding) as a Research Scientist Intern.</span>
+      </div>
+
+      <div class="news-item">
+        <span class="news-date">Mar 2024</span>
+        <span class="news-text"><a href="https://arxiv.org/abs/2404.15154">One first-author paper</a> accepted at Responsible GenAI Workshop (ReGenAI) @ CVPR 2024.</span>
+      </div>
+
+      <div class="news-item">
+        <span class="news-date">Jan 2024</span>
+        <span class="news-text"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0952197623015208">One first-author paper</a> accepted at Engineering Applications of Artificial Intelligence.</span>
+      </div>
+
+      <div class="news-item">
+        <span class="news-date">Dec 2022</span>
+        <span class="news-text">Won the Participation Award at Software University AI Contest (IITP) as team leader.</span>
+      </div>
+
+      <div class="news-item">
+        <span class="news-date">Nov 2021</span>
+        <span class="news-text">Won Grand &amp; Special Prize at HAICON 2021 (National Intelligence Service) as team leader.</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Publications -->
+  <section id="publications">
+    <p class="section-label">Publications &nbsp;<span style="font-weight:300;letter-spacing:0">— * equal contribution &nbsp;· C = Conference, W = Workshop, J = Journal, P = Preprint</span></p>
+
+    <div class="pub-filters">
+      <button class="pub-filter active" data-filter="all">All</button>
+      <button class="pub-filter" data-filter="privacy">Responsibility</button>
+      <button class="pub-filter" data-filter="robust">Robustness</button>
+      <button class="pub-filter" data-filter="xai">Interpretability</button>
+      <button class="pub-filter" data-filter="aix">AI + X</button>
+      <button class="pub-filter" data-filter="other">Other</button>
+    </div>
+
+    <div class="pub-list">
+
+      <div class="pub-item" data-tags="aix">
+        <span class="pub-badge">W3</span>
+        <div>
+          <a href="https://arxiv.org/abs/2603.26046" class="pub-title" target="_blank">Team MKC at MEDIQA-SYNUR 2026: Retrieval-Augmented Generation Based Nurse Observation Extraction</a>
+          <p class="pub-authors"><span class="me">Kyomin Hwang</span>, Nojun Kwak</p>
+          <p class="pub-venue">Clinical NLP @ LREC, 2026</p>
+          <div class="pub-tags"><span class="tag tag-aix">AI + Medical</span></div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-tags="aix">
+        <span class="pub-badge">C4</span>
+        <div>
+          <a href="https://kyominhwang.github.io/" class="pub-title" target="_blank">Modeling Persuasion Knowledge Activation through LLM-Based Simulation</a>
+          <p class="pub-authors">Eunjin Anna Kim, Esther Thorson, <span class="me">Kyomin Hwang</span>, Hyeonjin Kim, Nojun Kwak</p>
+          <p class="pub-venue">ICA, 2026</p>
+          <div class="pub-tags"><span class="tag tag-aix">AI + Advertisement</span></div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-tags="privacy">
+        <span class="pub-badge">P2</span>
+        <div>
+          <a href="https://arxiv.org/abs/2511.07842" class="pub-title" target="_blank">Alignment-Aware Quantization for LLM Safety</a>
+          <p class="pub-authors">Sunghyun Wee, Hyeonjin Kim, Suyoung Kim, <span class="me">Kyomin Hwang</span>, Nojun Kwak</p>
+          <p class="pub-venue">arXiv, 2025</p>
+          <div class="pub-tags"><span class="tag tag-privacy">Responsibility</span></div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-tags="privacy">
+        <span class="pub-badge">P1</span>
+        <div>
+          <a href="https://arxiv.org/abs/2510.23949" class="pub-title" target="_blank">Uncovering the Potential Risks in Unlearning: Danger of English-only Unlearning in Multilingual LLMs</a>
+          <p class="pub-authors"><span class="me">Kyomin Hwang*</span>, Hyeonjin Kim*, Seungyeon Kim, Sunghyun Wee, Nojun Kwak</p>
+          <p class="pub-venue">arXiv, 2025</p>
+          <div class="pub-tags"><span class="tag tag-privacy">Responsibility</span></div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-tags="robust">
+        <span class="pub-badge">J2</span>
+        <div>
+          <a href="https://ieeexplore.ieee.org/abstract/document/11141419" class="pub-title" target="_blank">Mitigating the Bias in the Model for Continual Test-Time Adaptation</a>
+          <p class="pub-authors">Inseop Chung, <span class="me">Kyomin Hwang</span>, Jayeon Yoo, Nojun Kwak</p>
+          <p class="pub-venue">IEEE Access, 2025</p>
+          <div class="pub-tags"><span class="tag tag-robust">Robustness</span></div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-tags="robust">
+        <span class="pub-badge">C3</span>
+        <div>
+          <a href="https://arxiv.org/abs/2503.13915" class="pub-title" target="_blank">Unlocking the potential of unlabeled data in semi-supervised domain generalization</a>
+          <p class="pub-authors">Dongkwan Lee*, <span class="me">Kyomin Hwang*</span>, Nojun Kwak</p>
+          <p class="pub-venue">CVPR, 2025</p>
+          <div class="pub-tags"><span class="tag tag-robust">Robustness</span></div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-tags="xai">
+        <span class="pub-badge">C2</span>
+        <div>
+          <a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/d60e14c19cd6e0fc38556ad29ac8fbc9-Abstract-Conference.html" class="pub-title" target="_blank">Deep Support Vectors</a>
+          <p class="pub-authors">JunHoo Lee, Hyunho Lee, <span class="me">Kyomin Hwang</span>, Nojun Kwak</p>
+          <p class="pub-venue">NeurIPS, 2024</p>
+          <div class="pub-tags"><span class="tag tag-xai">Interpretability</span></div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-tags="privacy">
+        <span class="pub-badge">W2</span>
+        <div>
+          <a href="https://arxiv.org/abs/2404.15154" class="pub-title" target="_blank">Do not think about pink elephant!</a>
+          <p class="pub-authors"><span class="me">Kyomin Hwang*</span>, Suyoung Kim*, JunHoo Lee*, Nojun Kwak</p>
+          <p class="pub-venue">Responsible GenAI Workshop (ReGenAI) @ CVPR, 2024</p>
+          <div class="pub-tags"><span class="tag tag-privacy">Responsibility</span></div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-tags="other">
+        <span class="pub-badge">J1</span>
+        <div>
+          <a href="https://www.sciencedirect.com/science/article/abs/pii/S0952197623015208" class="pub-title" target="_blank">Fusing bi-directional global–local features for single image super-resolution</a>
+          <p class="pub-authors"><span class="me">Kyomin Hwang*</span>, Gangjoon Yoon*, Jinjoo Song, Sangmin Yoon</p>
+          <p class="pub-venue">Engineering Applications of Artificial Intelligence, 2024</p>
+          <div class="pub-tags"><span class="tag tag-other">Super Resolution</span></div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-tags="other">
+        <span class="pub-badge">W1</span>
+        <div>
+          <a href="https://arxiv.org/abs/2309.01961" class="pub-title" target="_blank">NICE: CVPR 2023 Challenge on Zero-shot Image Captioning</a>
+          <p class="pub-authors">Challenge Report (Team Contribution)</p>
+          <p class="pub-venue">NICE Workshop @ CVPR, 2023</p>
+          <div class="pub-tags"><span class="tag tag-other">Multi-modal</span></div>
+        </div>
+      </div>
+
+      <div class="pub-item" data-tags="other">
+        <span class="pub-badge">C1</span>
+        <div>
+          <a href="https://ieeexplore.ieee.org/abstract/document/9333879" class="pub-title" target="_blank">A Study of CNN-Based Human Behavior Recognition with Channel State Information</a>
+          <p class="pub-authors"><span class="me">Kyomin Hwang</span>, Sang-Chul Kim</p>
+          <p class="pub-venue">ICOIN, 2021</p>
+          <div class="pub-tags"><span class="tag tag-other">Human Action Recognition</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Honors & Challenges (two columns) -->
+  <section id="honors">
+    <p class="section-label">Honors &amp; Awards</p>
+    <div class="list-items">
+
+          <div class="list-item">
+            <span class="list-item-year">Sep 2025 –</span>
+            <span class="list-item-title">Samsung Electronics Ph.D. Student Sponsorship Program</span>
+          </div>
+
+          <div class="list-item">
+            <span class="list-item-year">Nov 2022</span>
+            <span class="list-item-title">Software University AI Contest Participation Award — IITP</span>
+          </div>
+
+          <div class="list-item">
+            <span class="list-item-year">Jun 2022</span>
+            <span class="list-item-title">Capstone Design Contest Excellence Award — Kookmin University</span>
+          </div>
+
+          <div class="list-item">
+            <span class="list-item-year">Nov 2021</span>
+            <span class="list-item-title">HAICON 2021 Special Prize &amp; Grand Prize — NIS &amp; NSR</span>
+          </div>
+
+          <div class="list-item">
+            <span class="list-item-year">2021 – 2022</span>
+            <span class="list-item-title">National Science &amp; Technology Scholarship — KOSAF</span>
+          </div>
+
+          <div class="list-item">
+            <span class="list-item-year">2021</span>
+            <span class="list-item-title">S&amp;T Scholarship — S&amp;T Foundation</span>
+          </div>
+
+          <div class="list-item">
+            <span class="list-item-year">2017 – 2020</span>
+            <span class="list-item-title">Academic Excellence Scholarship — Kookmin University</span>
+          </div>
+
+    </div>
+  </section>
+
+  <section id="competitions">
+    <p class="section-label">Competitions</p>
+    <div class="list-items">
+
+      <div class="list-item">
+        <span class="list-item-year">2026</span>
+        <span class="list-item-title">MEDIQA-SYNUR @ ClinicalNLP 2026 — 5th place</span>
+      </div>
+
+      <div class="list-item">
+        <span class="list-item-year">2023</span>
+        <span class="list-item-title">Samsung AI Challenge: Camera-Invariant Domain Adaptation — 11th place</span>
+      </div>
+
+      <div class="list-item">
+        <span class="list-item-year">2023</span>
+        <span class="list-item-title">CVPR 2023 NICE Challenge (Zero-shot Captioning) — 6th place</span>
+      </div>
+
+      <div class="list-item">
+        <span class="list-item-year">2022</span>
+        <span class="list-item-title">SW University AI Contest — 17th place</span>
+      </div>
+
+      <div class="list-item">
+        <span class="list-item-year">2022</span>
+        <span class="list-item-title">AI Yangjae Hub Open-source Contest — 22nd place</span>
+      </div>
+
+      <div class="list-item">
+        <span class="list-item-year">2021</span>
+        <span class="list-item-title">HAICON 2021 — 3rd place</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Teaching -->
+  <section id="teaching">
+    <p class="section-label">Teaching</p>
+    <div class="list-items">
+
+      <div class="list-item">
+        <span class="list-item-year">2023 &nbsp;·&nbsp; Seoul National University</span>
+        <span class="list-item-title">Assistant Instructor — KDB-SNU AI Non-degree Course</span>
+      </div>
+
+      <div class="list-item">
+        <span class="list-item-year">2022 &nbsp;·&nbsp; Kookmin University</span>
+        <span class="list-item-title">Assistant Instructor — Computer Programming</span>
+      </div>
+
+      <div class="list-item">
+        <span class="list-item-year">2021 &nbsp;·&nbsp; Kookmin University</span>
+        <span class="list-item-title">Assistant Instructor — Software Project</span>
+      </div>
+
+      <div class="list-item">
+        <span class="list-item-year">2021 &nbsp;·&nbsp; Kookmin University</span>
+        <span class="list-item-title">Assistant Instructor — Numerical Analysis</span>
+      </div>
+
+      <div class="list-item">
+        <span class="list-item-year">2020 &nbsp;·&nbsp; Kookmin University</span>
+        <span class="list-item-title">Assistant Instructor — Computer Programming</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Reviewer -->
+  <section id="reviewer">
+    <p class="section-label">Reviewer</p>
+    <table class="reviewer-table">
+      <tr>
+        <td class="reviewer-type">Conference</td>
+        <td>
+          <div class="reviewer-venues">
+            <span class="reviewer-chip">AAAI <span>2026</span></span>
+            <span class="reviewer-chip">ICML <span>2026</span></span>
+            <span class="reviewer-chip">LREC-ClinicalNLP <span>2026</span></span>
+            <span class="reviewer-chip">ECCV <span>2026</span></span>
+            <span class="reviewer-chip">NeurIPS <span>2026</span></span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="reviewer-type">Journal</td>
+        <td>
+          <div class="reviewer-venues">
+            <span class="reviewer-chip">TCSVT <span>2025</span></span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </section>
+
+</main>
+
+<footer>
+  <div class="page-wrapper">
+    <p>Based on a template originally by <a href="https://github.com/jonbarron/jonbarron_website" target="_blank">Jon Barron</a>.</p>
+  </div>
+</footer>
+
+<script>
+  const filters = document.querySelectorAll('.pub-filter');
+  const pubs = document.querySelectorAll('.pub-item');
+
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      pubs.forEach(pub => {
+        const tags = (pub.dataset.tags || '').split(' ');
+        if (f === 'all' || tags.includes(f)) {
+          pub.classList.remove('hidden');
+        } else {
+          pub.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
